@@ -1,7 +1,7 @@
 ### TurnAroundPromptApi Test Requests
 
 ### 1. Create a new prompt (PUT)
-PUT https://localhost:7001/turnaroundprompt
+PUT https://localhost:5001/turnaroundprompt
 Content-Type: application/json
 x-api-key: admin-key
 
@@ -12,11 +12,11 @@ x-api-key: admin-key
 }
 
 ### 2. Get a prompt by ID (GET)
-GET https://localhost:7001/turnaroundprompt/TAP-001
+GET https://localhost:5001/turnaroundprompt/TAP-001
 x-api-key: readonly-key
 
 ### 3. Update a prompt (PATCH)
-PATCH https://localhost:7001/turnaroundprompt
+PATCH https://localhost:5001/turnaroundprompt
 Content-Type: application/json
 x-api-key: admin-key
 
@@ -27,11 +27,11 @@ x-api-key: admin-key
 }
 
 ### 4. Soft delete a prompt (DELETE)
-DELETE https://localhost:7001/turnaroundprompt/TAP-001
+DELETE https://localhost:5001/turnaroundprompt/TAP-001
 x-api-key: admin-key
 
 ### 5. Test with readonly key (should fail for write operations)
-PUT https://localhost:7001/turnaroundprompt
+PUT https://localhost:5001/turnaroundprompt
 Content-Type: application/json
 x-api-key: readonly-key
 
@@ -42,4 +42,4 @@ x-api-key: readonly-key
 }
 
 ### 6. Test without API key (should fail)
-GET https://localhost:7001/turnaroundprompt/TAP-001
+GET https://localhost:5001/turnaroundprompt/TAP-001

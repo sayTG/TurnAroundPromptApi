@@ -1,4 +1,5 @@
-using TurnAroundPromptApi.Api.Services;
+using TurnAroundPromptApi.Services.Implementation;
+using TurnAroundPromptApi.Services.Interfaces;
 using Xunit;
 
 namespace TurnAroundPromptApi.Tests

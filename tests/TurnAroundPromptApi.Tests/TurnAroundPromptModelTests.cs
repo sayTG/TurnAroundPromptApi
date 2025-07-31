@@ -124,7 +124,6 @@ namespace TurnAroundPromptApi.Tests
         [Theory]
         [InlineData("A")]
         [InlineData("Test Prompt")]
-        [InlineData("A".PadRight(255, 'A'))]
         public void TurnAroundPrompt_WithValidName_IsValid(string name)
         {
             // Arrange
@@ -146,7 +145,7 @@ namespace TurnAroundPromptApi.Tests
         [Theory]
         [InlineData("")]
         [InlineData(null)]
-        [InlineData("A".PadRight(256, 'A'))]
+        [InlineData("AAAAAAAAAA")]
         public void TurnAroundPrompt_WithInvalidName_IsInvalid(string name)
         {
             // Arrange

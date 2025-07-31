@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using TurnAroundPromptApi.Api.Services;
 using TurnAroundPromptApi.Services.Implementation;
 using TurnAroundPromptApi.Services.Interfaces;
 using TurnAroundPromptApi.Services.Models;
+using TurnAroundPromptApi.Services.Extensions;
 
 namespace TurnAroundPromptApi.Api.EndpointHandlers
 {
@@ -59,7 +59,6 @@ namespace TurnAroundPromptApi.Api.EndpointHandlers
                 return Results.Unauthorized();
             }
 
-            // Validate request
             if (request == null)
             {
                 return Results.BadRequest(new { error = "Request body is required" });
@@ -94,13 +93,11 @@ namespace TurnAroundPromptApi.Api.EndpointHandlers
                 return Results.Unauthorized();
             }
 
-            // Validate request
             if (request == null)
             {
                 return Results.BadRequest(new { error = "Request body is required" });
             }
 
-            // Ensure we don't change the deleted flag through PATCH
             request.Deleted = false;
 
             var result = await dynamoDbService.UpdateItem(request);
@@ -140,7 +137,7 @@ namespace TurnAroundPromptApi.Api.EndpointHandlers
             var request = new TurnAroundPrompt 
             { 
                 Id = id,
-                Deleted = true // Mark as deleted
+                Deleted = true
             };
 
             var result = await dynamoDbService.UpdateItem(request);

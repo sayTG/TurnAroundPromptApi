@@ -1,7 +1,7 @@
+using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using TurnAroundPromptApi.Api.EndpointExtensions;
-using TurnAroundPromptApi.Api.Services;
 using TurnAroundPromptApi.Services.Implementation;
 using TurnAroundPromptApi.Services.Interfaces;
 
@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Configure AWS DynamoDB
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
 builder.Services.AddAWSService<IAmazonDynamoDB>();
 builder.Services.AddScoped<IDynamoDBContext, DynamoDBContext>();
 builder.Services.AddScoped<IDynamoDBService, DynamoDBService>();
@@ -30,13 +31,11 @@ try
     if (dynamoDbService is DynamoDBService concreteService)
     {
         await concreteService.EnsureTableExistsAsync();
-        Console.WriteLine("✅ DynamoDB table verified/created successfully");
     }
 }
 catch (Exception ex)
 {
-    Console.WriteLine($"⚠️ Warning: Could not verify DynamoDB table: {ex.Message}");
-    Console.WriteLine("The API will still start, but DynamoDB operations may fail.");
+    Console.WriteLine($"Could not verify DynamoDB table: {ex.Message}");
 }
 
 // Configure the HTTP request pipeline.

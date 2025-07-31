@@ -10,10 +10,10 @@ namespace TurnAroundPromptApi.Services.Implementation
     public class DynamoDBService : IDynamoDBService
     {
         private readonly IDynamoDBContext _context;
-        private readonly AmazonDynamoDBClient _dynamoDbClient;
+        private readonly IAmazonDynamoDB _dynamoDbClient;
         private const string TableName = "TurnaroundPromptTable";
 
-        public DynamoDBService(IDynamoDBContext context, AmazonDynamoDBClient dynamoDbClient)
+        public DynamoDBService(IDynamoDBContext context, IAmazonDynamoDB dynamoDbClient)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _dynamoDbClient = dynamoDbClient ?? throw new ArgumentNullException(nameof(dynamoDbClient));
@@ -134,12 +134,12 @@ namespace TurnAroundPromptApi.Services.Implementation
                     {
                         resultList.Add(typedPrompt);
                     }
-                    return new ServiceResponse<T>(true, "Item soft deleted successfully", resultList, HttpStatusCode.OK);
+                    return new ServiceResponse<T>(true, "Item deleted successfully", resultList, HttpStatusCode.OK);
                 }
-
-                // For hard delete (if needed)
-                await _context.DeleteAsync(request);
-                return new ServiceResponse<T>(true, "Item deleted successfully", new List<T>(), HttpStatusCode.OK);
+                else
+                {
+                    return new ServiceResponse<T>(false, "Item type not implemented", new List<T>(), HttpStatusCode.NotFound);
+                }
             }
             catch (Exception ex)
             {
