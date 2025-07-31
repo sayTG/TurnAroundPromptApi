@@ -10,4 +10,10 @@
     <ProjectReference Include="..\TurnAroundPromptApi.Services\TurnAroundPromptApi.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.305.0" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.300.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+  </ItemGroup>
+
 </Project>

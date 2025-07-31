@@ -1,6 +1,45 @@
-@TurnAroundPromptApi.Api_HostAddress = http://localhost:5197
+### TurnAroundPromptApi Test Requests
 
-GET {{TurnAroundPromptApi.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+### 1. Create a new prompt (PUT)
+PUT https://localhost:7001/turnaroundprompt
+Content-Type: application/json
+x-api-key: admin-key
 
-###
+{
+  "id": "TAP-001",
+  "name": "Sample Prompt",
+  "status": "active"
+}
+
+### 2. Get a prompt by ID (GET)
+GET https://localhost:7001/turnaroundprompt/TAP-001
+x-api-key: readonly-key
+
+### 3. Update a prompt (PATCH)
+PATCH https://localhost:7001/turnaroundprompt
+Content-Type: application/json
+x-api-key: admin-key
+
+{
+  "id": "TAP-001",
+  "name": "Updated Prompt",
+  "status": "completed"
+}
+
+### 4. Soft delete a prompt (DELETE)
+DELETE https://localhost:7001/turnaroundprompt/TAP-001
+x-api-key: admin-key
+
+### 5. Test with readonly key (should fail for write operations)
+PUT https://localhost:7001/turnaroundprompt
+Content-Type: application/json
+x-api-key: readonly-key
+
+{
+  "id": "TAP-002",
+  "name": "Test Prompt",
+  "status": "active"
+}
+
+### 6. Test without API key (should fail)
+GET https://localhost:7001/turnaroundprompt/TAP-001

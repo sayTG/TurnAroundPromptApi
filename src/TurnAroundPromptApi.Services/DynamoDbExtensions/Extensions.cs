@@ -25,19 +25,6 @@ namespace TurnAroundPromptApi.Services.DynamoDbExtensions
             return remainingItems;
         }
 
-        public static async Task<ServiceResponse<T>> DeleteItemAsync<T>(this IDynamoDBContext context, T entity)
-        {
-            if (entity == null)
-            {
-                throw new Exception("Entity is not provided.");
-            }
-
-            await context.DeleteAsync(entity);
-            ServiceResponse<T> remainingItems = context.GetItemsAsync(entity).Result;
-            remainingItems.Message = "Resource Deleted";
-            remainingItems.StatusCode = HttpStatusCode.OK;
-            return remainingItems;
-        }
 
         public static async Task<ServiceResponse<T>> GetItemAsync<T>(this IDynamoDBContext context, T entity)
         {
@@ -55,15 +42,6 @@ namespace TurnAroundPromptApi.Services.DynamoDbExtensions
             }
 
             return new ServiceResponse<T>(isValid: false, "Resource Not Found", dataList, HttpStatusCode.NotFound);
-        }
-
-        public static async Task<bool> InsertEntityAsync<T>(DocumentBatchWrite batchWrite, T entity)
-        {
-            Document document = Document.FromJson(JsonConvert.SerializeObject(entity));
-            batchWrite.AddDocumentToPut(document);
-            await batchWrite.ExecuteAsync();
-            await Task.Delay(2000);
-            return true;
         }
 
         public static async Task<bool> InsertItems<T>(this BatchWrite<T> batch, List<T> entities)
