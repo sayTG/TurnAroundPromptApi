@@ -1,0 +1,6 @@
+@TurnAroundPromptApi.Api_HostAddress = http://localhost:5197
+
+GET {{TurnAroundPromptApi.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
