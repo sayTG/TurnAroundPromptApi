@@ -71,20 +71,12 @@ namespace TurnAroundPromptApi.Cdk
                 },
                 "":status"": {
                     ""S"": ""$input.path('$.status')""
-                }
-            },
-            ""ConditionExpression"": ""attribute_exists(Id) AND Deleted = :deleted"",
-            ""ExpressionAttributeValues"": {
-                "":name"": {
-                    ""S"": ""$input.path('$.name')""
-                },
-                "":status"": {
-                    ""S"": ""$input.path('$.status')""
                 },
                 "":deleted"": {
                     ""BOOL"": false
                 }
-            }
+            },
+            ""ConditionExpression"": ""attribute_exists(Id) AND Deleted = :deleted""
         }";
 
         // Response template for PATCH operation
@@ -104,17 +96,12 @@ namespace TurnAroundPromptApi.Cdk
             ""ExpressionAttributeValues"": {
                 "":deleted"": {
                     ""BOOL"": true
-                }
-            },
-            ""ConditionExpression"": ""attribute_exists(Id) AND Deleted = :notDeleted"",
-            ""ExpressionAttributeValues"": {
-                "":deleted"": {
-                    ""BOOL"": true
                 },
                 "":notDeleted"": {
                     ""BOOL"": false
                 }
-            }
+            },
+            ""ConditionExpression"": ""attribute_exists(Id) AND Deleted = :notDeleted""
         }";
 
         // Response template for DELETE operation

@@ -16,9 +16,11 @@ namespace TurnAroundPromptApi.Cdk
         public const string AdminApiKeyName = "AdminKey";
         public const string AdminApiKeyValue = "admin-key";
         
-        // Usage Plan
-        public const string UsagePlanName = "BasicPlan";
-        public const string UsagePlanDescription = "Basic usage plan for TurnAroundPrompt API";
+        // Usage Plans
+        public const string ReadOnlyUsagePlanName = "ReadOnlyUsagePlan";
+        public const string ReadOnlyUsagePlanDescription = "Usage plan for read-only API key - limited to GET operations";
+        public const string AdminUsagePlanName = "AdminUsagePlan";
+        public const string AdminUsagePlanDescription = "Usage plan for admin API key - full access with higher limits";
         
         // Role
         public const string DynamoDbRoleName = "DynamoDBRole";
